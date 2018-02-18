@@ -1,0 +1,42 @@
+<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+  <h2>Verifying Node</h2>
+  {{> verifying_node}}
+
+  <h2>User View</h2>
+  {{> user}}
+</body>
+
+<template name="verifying_node">
+  <div class="ui horizontal divider">1. Receive User Signature</div>
+
+  <div class="ui horizontal divider">2. Call Smart Contract & Sign Ring Signature Using k Dummy Nodes</div>
+
+  <div class="ui horizontal divider">3. Output Ring Signature</div>
+</template>
+
+<template name="user">
+  <div class="ui horizontal divider">1. Generate Signature w/ Custom Message</div>
+
+  <div class="ui input labeled">
+    <div class="ui label">
+      Message
+    </div>
+    <input id="user_message" type="text" placeholder="Your message...">
+  </div>
+
+  <button class="ui button gen_user_sig">
+    Generate
+  </button>
+
+  <div class="ui horizontal divider">2. Let Verifying Node Scan Signature</div>
+
+  <img src="" id="user_sig_qr">
+
+  <div class="ui horizontal divider">3. Save Proof & Log Proof to Blockchain</div>
+  <video id="preview"></video>
+
+  <h3 id="log_proof_out"></h3>
+</template>
