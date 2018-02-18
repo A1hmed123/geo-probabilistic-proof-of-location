@@ -8,11 +8,12 @@ import './RingSig.sol';
 contract PPoL is Ownable, RingMixerV2 {
   using SafeMath for uint256;
 
-  modifier onlyNode { require(isVerifyingNode(msg.sender)); _; }
-
   address[] verifyingNodes;
   mapping(address => uint256) verifyingNodeID;
   mapping(address => uint256) nodePublicKey;
+
+  event LogProof(uint256 _blockNum, bytes32 _blockHash, string _uuid, address _userAddr, bytes _userSig,
+    uint256[] _ringSig);
 
   function PPoL() public {
     verifyingNodes.push(address(0));
@@ -64,11 +65,18 @@ contract PPoL is Ownable, RingMixerV2 {
     return (RingSign(_message, data), true);
   }
 
-  function verifyProof(uint256 _timestamp, address _userAddr, bytes _userSig,
+  function verifyProof(uint256 _blockNum, bytes32 _blockHash, string _uuid, address _userAddr, bytes _userSig,
     uint256[] _ringSig)
     public view returns(bool isValid)
   {
-    return ECRecovery.recover(keccak256(_timestamp), _userSig) == _userAddr
+    return ECRecovery.recover(keccak256(_blockNum, _blockHash, _uuid), _userSig) == _userAddr
       && RingVerify(_userSig, _ringSig);
+  }
+
+  function logProof(uint256 _blockNum, bytes32 _blockHash, string _uuid, address _userAddr, bytes _userSig,
+    uint256[] _ringSig)
+    public returns(bool success)
+  {
+    LogProof(_blockNum, _blockHash, _uuid, _userAddr, _userSig, _ringSig);
   }
 }
