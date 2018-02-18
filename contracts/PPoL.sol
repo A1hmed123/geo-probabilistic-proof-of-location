@@ -38,11 +38,11 @@ contract PPoL is Ownable, RingMixerV2 {
     return verifyingNodeID[_node] != 0;
   }
 
-  function ringSign(bytes _message, uint256 _prvKey, uint256[] _dummyNodeIDs, uint256[] _randNums)
+  function ringSign(bytes _message, address _fromVNode, uint256 _prvKey, uint256[] _dummyNodeIDs, uint256[] _randNums)
     public view returns(uint256[32] signature, bool success)
   {
     uint256[32] memory empty;
-    if (!isVerifyingNode(msg.sender)
+    if (!isVerifyingNode(_fromVNode)
         || _dummyNodeIDs.length != _randNums.length
         || _dummyNodeIDs.length.mul(2).add(1) >= 32)
     {
@@ -55,10 +55,11 @@ contract PPoL is Ownable, RingMixerV2 {
 
     data[0] = 0;
     data[1] = _prvKey;
+    data[N.add(2)] = nodePublicKey[_fromVNode];
     for (i = 0; i < N; i = i.add(1)) {
       if (!isVerifyingNode(verifyingNodes[_dummyNodeIDs[i]])) { return (empty, false); }
       data[i.add(2)] = _randNums[i];
-      data[i.add(2).add(N)] = nodePublicKey[verifyingNodes[_dummyNodeIDs[i]]];
+      data[i.add(3).add(N)] = nodePublicKey[verifyingNodes[_dummyNodeIDs[i]]];
     }
     return (RingSign(_message, data), true);
   }
