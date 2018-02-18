@@ -1,4 +1,6 @@
-### Probabilistic-Proof-of-Location
+# Geo Probabilistic Proof of Location
+
+![logo](https://image.ibb.co/bwnLo7/geo_1_15.png)
 
 #### A. Proof Generation
 
