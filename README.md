@@ -1,6 +1,6 @@
 # Geo Probabilistic Proof of Location
 
-![logo](https://image.ibb.co/bwnLo7/geo_1_15.png)
+![logo](http://image.ibb.co/eZFL7c/xyo_geo_output.png)
 
 #### A. Proof Generation
 
