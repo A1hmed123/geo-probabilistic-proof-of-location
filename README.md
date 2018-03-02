@@ -1,6 +1,6 @@
 # Geo Probabilistic Proof of Location
 
-![logo](http://image.ibb.co/cd2E0x/geo_logo.png)
+![logo](https://raw.githubusercontent.com/GeoProof/geoproof.github.io/master/img/geo_3.png)
 
 #### A. Proof Generation
 
